@@ -1,3 +1,39 @@
+    <style>
+
+        .profile-user {
+            position: relative;
+        }
+
+        #userLogout {
+            position: absolute;
+            width: 100px;
+            min-height: 100px;
+            border-radius: 5px;
+            top: 100%;
+            right: 18px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            background-color: grey;
+            display: none;
+        }
+        #userLogout>li {
+            display: block;
+            width: 100%;
+            margin-top:8px ;
+            border-bottom: 1px solid springgreen;
+        }
+        #userLogout li a {
+            display: block;
+            width: 100%;
+            list-style: none;
+            color: white;
+            padding-left: 8px;
+        }
+        #userLogout.open {
+            display: block;
+        }
+    </style>
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -96,7 +132,7 @@
             </div>
         </li>
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <li class="nav-item ">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
                 <span class="badge badge-warning navbar-badge">15</span>
@@ -127,12 +163,25 @@
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                <i class="fas fa-th-large"></i>
-            </a>
+        <li class="nav-item profile-user dropdown">
+            <a class="nav-link" href="#"><i class="fa fa-user"></i> profile</a>
+
+            <ul id="userLogout">
+                <li><a href=""><i class="fa fa-suitcase"></i>Hồ sơ</a></li>
+                <li><a href=""><i class="fa fa-cog"></i>Setting</a></li>
+                <li><a href="{{route('admin.logout')}}"><i class="fa fa-cog"></i>Đăng xuất</a></li>
+                <li><button class="btn btn-success">Đóng</button></li>
+            </ul>
         </li>
     </ul>
 </nav>
 <!-- /.navbar -->
+
+    <script>
+        let profileUser = document.querySelector('.profile-user')
+        let userLogout = document.getElementById('userLogout')
+        profileUser.onclick = function (){
+            userLogout.classList.toggle('open')
+        }
+    </script>
 

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+//    use SoftDeletes;
     protected $table='products';
     protected $fillable=[
         'name',
@@ -30,6 +30,11 @@ class Product extends Model
     public function tags(){
         return $this->belongsToMany(Tag::class,'product_tags','product_id','tag_id')
             ->withTimestamps();
+    }
+
+    public function oders()
+    {
+        return $this->belongsToMany(Oder::class,'oder_details','product_id','oder_id');
     }
 
 }

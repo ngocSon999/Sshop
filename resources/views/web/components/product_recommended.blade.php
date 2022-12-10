@@ -11,13 +11,13 @@
 
                             <div class="product-image-wrapper">
                                 <div class="single-products">
+                                    <a href="{{route('web.productDetail',['id'=>$item->id])}}">
                                     <div class="productinfo text-center">
                                         <img src="{{$item->feature_image_path}}" alt=""/>
                                         <h2>đ {{number_format($item->price)}}</h2>
                                         <p>{{$item->name}}</p>
-                                        <a href="{{route('web.productDetail',['id'=>$item->id])}}">Chi tiết sản phẩm</a>
                                         <div class="row">
-                                                <a href="" class="btn btn-default add-to-cart"
+                                                <a href="" class="btn btn-default add-to-cart addCart"
                                                    data-url="{{route('web.getCart',['id'=>$item->id])}}">
                                                     <i class="fa fa-shopping-cart"></i>
                                                     Thêm vào giỏ hàng
@@ -25,7 +25,7 @@
                                                 <a href="" class="btn btn-default add-to-cart ">Mua ngay</a>
                                         </div>
                                     </div>
-
+                                    </a>
                                 </div>
                             </div>
                         </div>

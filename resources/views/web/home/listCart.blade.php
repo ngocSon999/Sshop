@@ -5,8 +5,8 @@
         <div class="container">
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="{{route('web.home.index')}}">Home</a></li>
-                    <li class="active">Shopping Cart</li>
+                    <li><a href="{{route('web.home.index')}}">Trang chủ</a></li>
+                    <li class="active">Giỏ hàng của bạn</li>
                 </ol>
             </div>
                     <!--list cart-->

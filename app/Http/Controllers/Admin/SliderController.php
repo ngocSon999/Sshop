@@ -64,6 +64,6 @@ class SliderController extends Controller
 
     public function delete($id)
     {
-        $this->sliderService->deleteSlider($id);
+        return $this->sliderService->deleteSlider($id);
     }
 }

@@ -41,6 +41,21 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label for="">ảnh đại diện</label>
+                                <input type="file" name="user_image_path" class="form-control">
+                                @error('user_image_path')
+                                <span style="color:red">{{$message}}</span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <img src="{{$user->user_iamge_path}}"
+                                     width="100px"
+                                     height="100px"
+                                     alt="">
+                            </div>
+
+                            <div class="form-group">
                                 <label for=""> Chọn vai trò</label>
                                 <select   class="form-control select-choose" name="role_id[]" multiple="multiple" >
                                     @foreach ($roles as $role)

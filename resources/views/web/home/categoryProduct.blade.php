@@ -37,7 +37,9 @@
                                         <div class="panel-body">
                                             @foreach($category->categoryChildrent as $categoryChildrent)
                                                 <ul>
-                                                    <li><a href="{{route('web.categoryProduct',['slug'=>$categoryChildrent->slug, 'id'=>$categoryChildrent->id])}}">- {{$categoryChildrent->name}}</a></li>
+                                                    <li>
+                                                        <a href="{{route('web.categoryProduct',['slug'=>$categoryChildrent->slug, 'id'=>$categoryChildrent->id])}}">- {{$categoryChildrent->name}}</a>
+                                                    </li>
                                                 </ul>
                                             @endforeach
                                         </div>
@@ -50,23 +52,25 @@
 
                 <div class="col-sm-9 padding-right">
                     <!--features_items-->
-                    <div class="row" >
+                    <div class="row">
 
                         @foreach($products as $product)
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="{{$product->feature_image_path}}" alt=""/>
-                                            <h2>đ {{number_format($product->price)}}</h2>
-                                            <p>{!! $product->name !!}</p>
+                                            <a href="{{route('web.productDetail',['id'=>$product->id])}}">
+                                                <img src="{{$product->feature_image_path}}" alt=""/>
+                                                <h2>đ {{number_format($product->price)}}</h2>
+                                                <p>{!! $product->name !!}</p>
+                                            </a>
                                             <div class="row">
-                                                    <a href="" class="btn btn-default add-to-cart"
-                                                       data-url="{{route('web.getCart',['id'=>$product->id])}}">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                        Thêm vào giỏ hàng
-                                                    </a>
-                                                    <a href="" class="btn btn-default add-to-cart ">Mua ngay</a>
+                                                <a href="" class="btn btn-default add-to-cart"
+                                                   data-url="{{route('web.getCart',['id'=>$product->id])}}">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    Thêm vào giỏ hàng
+                                                </a>
+                                                <a href="" class="btn btn-default add-to-cart ">Mua ngay</a>
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +95,7 @@
             e.preventDefault();
             let urlRequest = $(this).data('url');
             Swal.fire({
-                title:'Thêm sản phẩm vào giỏ hàng?',
+                title: 'Thêm sản phẩm vào giỏ hàng?',
                 text: "",
                 icon: '',
                 showCancelButton: true,

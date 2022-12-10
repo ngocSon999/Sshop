@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     private $userService;
-    public function __construct(User $user,UserService $userService){
+    public function __construct(UserService $userService){
     $this->userService=$userService;
 
     }
@@ -46,7 +46,8 @@ class UserController extends Controller
         return redirect()->route('admin.user.index');
     }
 
-    public function delete($id){
+    public function delete(Request $request){
+        $id = $request->user_id;
        $this->userService->deleteUser($id);
     }
 }

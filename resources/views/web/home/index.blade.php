@@ -53,12 +53,14 @@
             </div>
         </div>
     </section><!--/slider-->
+
     <section>
         <div class="container">
+
             <div class="row">
                 <div class="col-sm-3">
                     <div class="left-sidebar">
-                        <h4>Danh mục sản phẩm</h4>
+                        <h2 class="title text-center">Danh mục sản phẩm</h2>
                         <div class="panel-group category-products" id="accordian"><!--category-product-->
                             @foreach($categories as $category)
                                 <div class="panel panel-default">
@@ -97,7 +99,7 @@
                         </div><!--/category-products-->
                     </div>
                     <div class="form-group">
-                        <h4>Bộ lọc tìm kiếm</h4>
+                        <h4 class="title text-center">Bộ lọc tìm kiếm</h4>
                         <hr>
                         <form action="{{route('web.home.index')}}" method="get">
                             <div>
@@ -119,8 +121,14 @@
                                 <label for="">Tìm kiếm theo tên</label>
                                 <input class="form-control" name="keywords" type="search" placeholder="Nhập từ tìm kiếm">
                             </div>
-                            <button class="btn btn-success mt-4" type="submit">Tìm kiếm</button>
+                            <button style="margin-top: 6px" class="btn btn-success btn-sm" type="submit">Tìm kiếm</button>
                         </form>
+                    </div>
+                    <div>
+                        <h4 class="title text-center">Sản phẩm yêu thích</h4>
+                        <div id="view_likeProduct">
+
+                        </div>
                     </div>
                 </div>
 
@@ -134,11 +142,14 @@
                     <!--/category-tab-->
 
                     <!--recommended_items-->
-                    @include('web.components.product_recommended')
+                    @include('web.components.product_detail.product_recommend')
                     <!--/recommended_items-->
                 </div>
             </div>
         </div>
+        <div class="fb-comments" data-href="http://127.0.0.1:8000/web/home" data-width="" data-numposts="20"></div>
     </section>
 @endsection
+@section('js')
 
+@endsection

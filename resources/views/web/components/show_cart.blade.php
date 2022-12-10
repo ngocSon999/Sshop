@@ -1,8 +1,12 @@
 <div class="table-responsive cart_info">
+
+    @if(session('tb'))
+        <div class="alert alert-success">{{session('tb')}}</div>
+    @endif
     <table class="table table-condensed ">
         <thead>
         <tr class="cart_menu">
-            <td>#</td>
+            <td>Mã</td>
             <td class="image">Tên sản phẩm</td>
             <td class="description"></td>
             <td class="price">Đơn giá</td>
@@ -16,47 +20,75 @@
             $total = 0;
             $totalProduct = 0;
         @endphp
-        @foreach($carts as $id=> $cartItem)
-            @php
-                $total += $cartItem['price'] * $cartItem['quantity'];
-                $totalProduct += $cartItem['quantity'];
-            @endphp
-            <tr>
-                <td data-id="{{$id}}">{{$id}}</td>
+        @if(session()->get('carts'))
+           @foreach($carts as $id=> $cartItem)
+               @php
+                   $total += $cartItem['price'] * $cartItem['quantity'];
+                   $totalProduct += $cartItem['quantity'];
+               @endphp
+               <tr>
+                   <td >{{$id}}</td>
 
-                <td class="cart_product">
-                    <a href="{{route('web.productDetail',['id'=>$id])}}"><img src="{{$cartItem['image_path']}}" width="100px" height="100px" alt=""></a>
-                </td>
+                   <td class="cart_product">
+                       <a href="{{route('web.productDetail',['id'=>$id])}}"><img src="{{$cartItem['image_path']}}" width="100px" height="100px" alt=""></a>
+                   </td>
 
-                <td class="cart_description">
-                    <h4><a href="{{route('web.productDetail',['id'=>$id])}}">{{$cartItem['name']}}</a></h4>
-                    <p></p>
-                </td>
+                   <td class="cart_description">
+                       <h4><a href="{{route('web.productDetail',['id'=>$id])}}">{{$cartItem['name']}}</a></h4>
+                       <p></p>
+                   </td>
 
-                <td class="cart_price">
-                    <p> {{number_format($cartItem['price'])}} đ</p>
-                </td>
+                   <td class="cart_price">
+                       <p> {{number_format($cartItem['price'])}} đ</p>
+                   </td>
 
-                <td class="cart_quantity">
-                    <input class="cart_quantity_input" type="number" name="quantity"
-                           value="{{$cartItem['quantity']}}" min="1" style="width: 80px">
-                </td>
+                   <td class="cart_quantity">
+                       <input class="cart_quantity_input" type="number" name="quantity"
+                              value="{{$cartItem['quantity']}}" min="1" style="width: 80px">
+                   </td>
 
-                <td class="cart_total">
-                    <p class="cart_total_price">{{number_format($cartItem['price'] * $cartItem['quantity'] )}} đ</p>
-                </td>
+                   <td class="cart_total">
+                       <p class="cart_total_price">{{number_format($cartItem['price'] * $cartItem['quantity'] )}} đ</p>
+                   </td>
 
-                <td>
-                    <a  class="btn btn-primary update-cart" href=""  data-url="{{route('web.updateCart',['id'=>$id])}}" >Cập nhật</a>
-                    <a  class="btn btn-primary delete-cart" data-url_delete="{{route('web.deleteCart',['id'=>$id])}}"  href="" >Xóa</a>
-                </td>
-            </tr>
-        @endforeach
+                   <td>
+                       <a  class="btn btn-primary update-cart" href=""  data-url="{{route('web.updateCart',['id'=>$id])}}" >Cập nhật</a>
+                       <a  class="btn btn-primary delete-cart" data-url_delete="{{route('web.deleteCart',['id'=>$id])}}"  href="" >Xóa</a>
+                   </td>
+               </tr>
+           @endforeach
+           <tr>
+               <td colspan="2">
+                   <table class="table table-condensed total-result">
+                       <tr>
+                           <td>Tổng tiền sản phẩm:</td>
+                           <td>{{number_format($total)}} đ</td>
+                       </tr>
+                       <tr>
+                           <td>Thuế 5%:</td>
+                           <td>{{number_format($total * 0.05)}} đ</td>
+                       </tr>
+                       <tr class="shipping-cost">
+                           <td>Phí vận chuyển:</td>
+                           <td>Free</td>
+                       </tr>
+                       <tr>
+                           <td>Thành tiền:</td>
+                           <td><span>{{number_format($total + $total * 0.05)}} đ</span></td>
+                       </tr>
+                   </table>
+                   @if(Auth::user())
+                       <a href="{{route('web.login_checkout')}}" class="btn btn-success btn-sm">Thanh toán</a>
+                   @else
+                       <a href="{{route('web.login.form_login')}}" class="btn btn-success btn-sm">Thanh toán</a>
+                   @endif
+
+               </td>
+           </tr>
+       @endif
         </tbody>
     </table>
-    <div class="row justify-content-center">
-        <h3 class="d-block text-center">@if(!empty($total)) Tổng số sản phẩm là: {{$totalProduct}} - Tổng tiền giỏ hàng: {{number_format($total)}} đ @else Chưa có sản phẩm nào @endif</h3>
-    </div>
+
 </div>
 @section('js')
 
@@ -78,6 +110,7 @@
                         Swal.fire(
                             'Cập nhật thành công',
                         )
+                        window.location.reload()
                     }
                 },
                 error: function () {
@@ -109,6 +142,7 @@
                                     'Xóa thành công',
                                     'success'
                                 )
+                                window.location.reload()
                             }
                         },
                         error: function (){

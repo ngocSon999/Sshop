@@ -34,6 +34,13 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label for="">ảnh đại diện</label>
+                                <input type="file" name="user_image_path" class="form-control">
+                                @error('user_image_path')
+                                <span style="color:red">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label for="">Password</label>
                                 <input type="text" name="password" class="form-control" placeholder="Nhập password" >
                                 @error('password')

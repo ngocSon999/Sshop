@@ -3,6 +3,7 @@
 namespace App\Http\Service\webs;
 
 use App\Models\Category;
+use App\Models\OderDetail;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Slider;
@@ -14,19 +15,20 @@ class WebService
 
     private $htmlSelect = '';
 
-    public function getAll($request)
+    public function getAll($request,$slug)
     {
+        $sortype='asc';
         DB::enableQuerylog();
         $sliders = Slider::all();
         $categories = Category::WHERE('parent_id', 0)->get();
 
         $products = DB::table('products')
-            ->select('products.*');
-        $sortype='asc';
+        ->select('products.*');
+
         if (!empty($request->price)) {
             $sortype = $request->price;
         }
-        $products = $products->orderBy('products.price', $sortype);
+        $products = $products->orderBy('price', $sortype);
 
         if (!empty($request->category_id)) {
             $products = $products->where('category_id', $request->category_id);
@@ -49,7 +51,13 @@ class WebService
                 $query->orwhere('content', 'like', '%' . $keywords . '%');
             });
         }
-
+        if (!empty($slug)){
+            $products = $products->where(function ($query) use ($slug) {
+                $query->orwhere('name', 'like', '%' . $slug . '%');
+                $query->orwhere('price', 'like', '%' . $slug . '%');
+                $query->orwhere('content', 'like', '%' . $slug . '%');
+            });
+        }
         $products = $products->paginate(6)->withQueryString();
 
         $productRecommended = Product::take(12)->get();

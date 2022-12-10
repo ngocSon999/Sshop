@@ -1,44 +1,6 @@
-<style>
-    .cart_header {
-        position: relative;
-    }
-
-    .cart-items {
-        position: absolute;
-        top: 100%;
-        left: -142px;
-        width: 200px;
-        height: 200px;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 100;
-        display: none;
-        text-align: center;
-        color: #fff3cd;
-    }
-
-    .cart_header:hover .cart-items {
-        display: block;
-    }
-
-
-    .cart-productTotal {
-        position: absolute;
-        top: -4px;
-        right: -21px;
-        border: 1px solid;
-        width: 20px;
-        height: 20px;
-        border-radius: 100%;
-        color: red;
-        text-align: center;
-        font-size: 12px;
-    }
-
-</style>
-
 <header id="header"><!--header-->
     <!--header_top-->
-     <!--   <div class="header_top">
+    <!--   <div class="header_top">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
@@ -72,48 +34,90 @@
                 <div class="col-sm-4">
                     <div class="logo pull-left">
                         <a href="{{route('web.home.index')}}"><img
-                                src="{{asset('/frontend/Eshopper/images/home/logo.png')}}" alt=""/></a>
+                                src="{{asset('/frontend/Eshopper/images/home/partner2.png')}}" alt=""/></a>
                     </div>
                 </div>
 
                 @php
-                    if (session()->get('carts')){
-                        $carts = session()->get('carts');
-                        if (!empty($carts)){
-                            $totalProduct = 0;
-                        foreach ($carts as $cart){
-                            $totalProduct += $cart['quantity'];
-                        }
-                        }
-                    }
 
+
+                        if (session()->has('carts')){
+                            $carts = session()->get('carts');
+                            if (!empty($carts)){
+                                $totalProduct = 0;
+                                $totalPrice = 0;
+                                foreach ($carts as $cart){
+                                        $totalProduct += $cart['quantity'];
+                                        $totalPrice += ($cart['quantity']* $cart['price']);
+                                }
+                            }
+                        }
                 @endphp
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             @if(Auth::user())
-                                <li><a href="#"><i class="fa fa-user"></i> profile</a></li>
-                                <li><a href="{{route('web.showCart')}}"><i class="fa fa-shopping-cart"></i>
-                                        Cart
-                                        @if(!empty($totalProduct))
-                                            <p class="cart-productTotal"> {{$totalProduct}} </p>
-                                        @endif
+                                <li class="profile-user toggle">
+                                    <a href="#"><img src="{{Auth::user()->user_image_path}}"
+                                                     width="22px"
+                                                     height="22px"
+                                                     alt="User Image"
+                                                     style="border-radius: 100%">
+                                        {{Auth::user()->name}}
                                     </a>
+                                    <ul class="userLogout">
+                                        <li><a href=""><i class="fa fa-suitcase"></i>Hồ sơ</a></li>
+                                        <li><a href=""><i class="fa fa-cog"></i>Setting</a></li>
+                                        <li><a href="{{route('web.logout')}}"><i class="fa fa-cog"></i>Đăng xuất</a>
+                                        </li>
+                                        <li>
+                                            <button class="btn btn-success btn-sm">Đóng</button>
+                                        </li>
+                                    </ul>
                                 </li>
+                            @endif
+                            <li class="cart_header">
+                                <a href="{{route('web.showCart')}}"><i class="fa fa-shopping-cart"></i>Cart</a>
+
+                                <div class="cart-items">
+                                    <img src="" alt="">
+                                </div>
+                                @if(!empty($totalProduct))
+                                    <p class="cart-productTotal">{{$totalProduct}}</p>
+                                    <div class="cart-items">
+                                        @foreach(session()->get('carts') as $cart)
+                                            <div>
+                                                <img src="{{$cart['image_path']}}" width="50px" height="50px" alt="">
+                                                <p>{{$cart['name']}} x {{$cart['quantity']}}  </p>
+                                                <p>{{number_format($cart['price']*$cart['quantity'])}} đ</p>
+                                            </div>
+                                        @endforeach
+                                        <div>Tổng số sản phẩm: {{$totalProduct}}</div>
+
+                                        <div>Tổng tiền giỏ hàng: {{number_format($totalPrice)}} đ</div>
+
+                                        <a class="btn btn-success" href="{{route('web.showCart')}}">Xem giỏ hàng</a>
+                                    </div>
+                                @else
+                                    <p class="cart-productTotal">0</p>
+                                    <div class="cart-items noCart">
+                                        <img src="" alt="">
+                                        <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+                                    </div>
+                                @endif
+                            </li>
+
+
+                            @if(Auth::user())
                                 <li>
                                     <a href="{{route('web.logout')}}">Đăng xuất</a>
                                 </li>
                             @else
-                                <li class="cart_header">
-                                    <a href="#"><i class="fa fa-shopping-cart"></i>Cart</a>
-                                    <div class="cart-items">
-                                        <img src="" alt="">
-                                        <p>Chưa có sản phẩm nào</p>
-                                    </div>
-                                </li>
                                 <li><a href="{{route('web.login.form_login')}}">Đăng nhập</a></li>
                                 <li><a href="{{route('web.login.index')}}">Đăng ký</a></li>
                             @endif
+
+
                         </ul>
                     </div>
                 </div>
@@ -144,13 +148,13 @@
                                     @include('web.components.menu_categoy',['categoryPrent'=>$category])
                                 </li>
                             @endforeach
-                            <li><a href="{{route('web.contact.index')}}">Contact</a></li>
+                            <li><a href="{{route('web.contact.index')}}">Liên hệ</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <form action="" method="get">
+                        <form action="{{route('web.home.index')}}" method="get">
                             <input name="keywords1" type="text" placeholder="Nhập từ tìm kiếm"/>
                             <button class="btn btn-success" type="submit">Tìm kiếm</button>
                         </form>
@@ -161,4 +165,14 @@
         </div>
     </div><!--/header-bottom-->
 </header><!--/header-->
+
+
+<script>
+    let profileUser = document.querySelector('.profile-user.toggle')
+    let userLogout = document.querySelector('.userLogout')
+    profileUser.onclick = function (e) {
+        console.log(e.target)
+        userLogout.classList.toggle('open')
+    }
+</script>
 

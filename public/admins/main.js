@@ -1,5 +1,6 @@
 function actionDelete(e){
-
+    e.preventDefault();
+    let urlRequest = $(this).data('url');
     Swal.fire({
         title: 'Bạn có muốn xóa sản phẩm này?',
         text: "Chọn OK để xóa, Cancel để quay lại",
@@ -13,13 +14,16 @@ function actionDelete(e){
             $.ajax({
                 type: 'GET',
                 url: urlRequest,
+                dataType: 'json',
                 success: function (data){
-                    $(self).closest('tr').remove();
-                    Swal.fire(
-                        'Xong',
-                        'Sản phẩm đã xóa hỏi hệ thống',
-                        'success'
-                    )
+                   if (data.code === 200){
+                       $(self).closest('tr').remove();
+                       Swal.fire(
+                           'Xong',
+                           'Sản phẩm đã xóa hỏi hệ thống',
+                           'success'
+                       )
+                   }
                 },
                 error: function (){
 

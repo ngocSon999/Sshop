@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+
     public function index(){
        return view('admin.login.index');
     }
@@ -27,6 +28,6 @@ class AdminController extends Controller
 
     public function logout(){
         Auth::logout();
-        return back();
+        return redirect()->route('admin.login');
     }
 }

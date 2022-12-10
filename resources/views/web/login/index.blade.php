@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-12 col-md-6">
             <div>
-                <form action="{{route('web.login.store')}}" method="post" >
+                <form action="{{route('web.login.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="">Tên</label>
@@ -26,6 +26,14 @@
                         <label for="">email</label>
                         <input type="text" name="email" class="form-control" placeholder="Nhập email" value="{{old('email')}}">
                         @error('email')
+                        <span style="color:red">{{$message}}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for=""> ảnh đại diện</label>
+                        <input type="file" name="user_image_path" class="form-control">
+                        @error('user_image_path')
                         <span style="color:red">{{$message}}</span>
                         @enderror
                     </div>

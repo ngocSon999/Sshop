@@ -1,0 +1,21 @@
+
+.tags-product {
+    display: flex;
+    margin: 0;
+    padding-left: 8px;
+}
+
+.tags-product li {
+    list-style: none;
+    display: block;
+    min-width: 40px;
+    margin: 0 4px;
+    border: 1px solid;
+    border-radius: 4px;
+    background-color: #1ab6cf;
+}
+
+.tags-product li a {
+    text-decoration: none;
+    color: #fff3cd;
+}

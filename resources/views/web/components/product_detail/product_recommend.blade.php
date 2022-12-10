@@ -1,0 +1,51 @@
+<div class="recommended_items">
+    <h2 class="title text-center">Sản phẩm mới</h2>
+
+    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            @foreach($productRecommended as $key=>$item)
+                @if($key % 3 == 0)
+                    <div class="item {{$key == 0 ? 'active' : ''}}">
+                        @endif
+                        <div class="col-sm-4">
+
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <a href="{{route('web.productDetail',['id'=>$item->id])}}">
+                                        <div class="productinfo text-center">
+                                            <img src="{{$item->feature_image_path}}" alt=""/>
+                                            <h2>đ {{number_format($item->price)}}</h2>
+                                            <p>{{$item->name}}</p>
+
+                                            <div class="row">
+                                                <a href="" class="btn btn-default add-to-cart addCart "
+                                                   data-url="{{route('web.getCart',['id'=>$item->id])}}">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    Thêm vào giỏ hàng
+                                                </a>
+                                                <button type="button" class="btn btn-default add-to-cart"
+                                                        data-toggle="modal" data-target="#xemnhanh"
+                                                        data-url-product="{{route('web.quick_view',['id'=>$item->id])}}">
+                                                    Xem nhanh
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        @if($key % 3 == 2)
+                    </div>
+                @endif
+            @endforeach
+        </div>
+        <a class="left recommended-item-control" href="#recommended-item-carousel"
+           data-slide="prev">
+            <i class="fa fa-angle-left"></i>
+        </a>
+        <a class="right recommended-item-control" href="#recommended-item-carousel"
+           data-slide="next">
+            <i class="fa fa-angle-right"></i>
+        </a>
+    </div>
+</div>

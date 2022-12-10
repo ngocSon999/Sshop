@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EditTypeConfigValueSettingsTable extends Migration
+class AddIsAdminToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class EditTypeConfigValueSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::table('settings', function (Blueprint $table) {
-            $table->longText('config_value')->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('is_admin')->default(0);
         });
     }
 
@@ -25,8 +25,8 @@ class EditTypeConfigValueSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::table('settings', function (Blueprint $table) {
-
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 }
