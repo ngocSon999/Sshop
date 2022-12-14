@@ -15,7 +15,6 @@
 @section('content')
     <section id="slider"><!--slider-->
         <div class="container">
-        hellllo
             <div class="row">
                 <div class="col-sm-12">
                     <div id="slider-carousel" class="carousel slide" data-ride="carousel">
