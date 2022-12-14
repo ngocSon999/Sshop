@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <meta property="og:url"           content="https://www.your-domain.com/your-page.html" />
     <meta property="og:type"          content="website" />
     <meta property="og:title"         content="Your Website Title" />
     <meta property="og:description"   content="Your description" />
     <meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
-    @yield('title')
+
 
     <link href="{{asset('/frontend/Eshopper/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('/frontend/Eshopper/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -32,14 +32,17 @@
 
 @yield('content')
 
+
 @include('web.layouts.footer')
 
-@yield('js')
 <script src="{{asset('/frontend/Eshopper/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/frontend/Eshopper/js/jquery.scrollUp.min.js')}}"></script>
 <script src="{{asset('/frontend/Eshopper/js/price-range.js')}}"></script>
 <script src="{{asset('/frontend/Eshopper/js/jquery.prettyPhoto.js')}}"></script>
 <script src="{{asset('/frontend/Eshopper/js/main.js')}}"></script>
+
+@yield('js')
+
 
 
 <div id="fb-root"></div>

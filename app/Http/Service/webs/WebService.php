@@ -7,6 +7,7 @@ use App\Models\OderDetail;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Slider;
+use App\Models\Video;
 use Hamcrest\Core\Set;
 use DB;
 
@@ -63,10 +64,10 @@ class WebService
         $productRecommended = Product::take(12)->get();
         $settings = Setting::all();
         $htmlSelect = $this->categorySearch();
-
+        $videos = Video::orderBy('id','desc')->take(9)->get();
         $sql = DB::getQuerylog();
 
-        return [$sliders, $categories, $products, $productRecommended, $settings, $htmlSelect];
+        return [$sliders, $categories, $products, $productRecommended, $settings, $htmlSelect,$videos];
     }
 
     function categorySearch($id = 0, $text = '')

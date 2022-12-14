@@ -18,6 +18,7 @@
     <!-- ckeditor-->
     <script src="{{asset('admins/ckeditor/ckeditor.js')}}"></script> <!--the textare-->
 
+    <!-- customer video youtobe-->
     @yield('style')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -27,6 +28,7 @@
     @include('admin.layouts.partials.sidebar')
 
     @yield('content')
+
     @include('admin.layouts.partials.footer')
 </div>
 <!-- ./wrapper -->
@@ -42,6 +44,9 @@
 <script src="{{asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
+<!--video-->
+
+
 
 @yield('js')
 </body>

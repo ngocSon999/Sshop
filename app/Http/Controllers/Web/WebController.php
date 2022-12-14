@@ -92,11 +92,11 @@ class WebController extends Controller
         return redirect()->route('web.home.index');
     }
 
-
+        //show trng chủ
     public function index(request $request)
     {
         $data = $this->webService->getAll($request, $slug = '');
-        list($sliders, $categories, $products, $productRecommended, $settings, $htmlSelect) = $data;
+        list($sliders, $categories, $products, $productRecommended, $settings, $htmlSelect,$videos) = $data;
 
         return view('web.home.index',
             compact(
@@ -106,6 +106,7 @@ class WebController extends Controller
                 'productRecommended',
                 'settings',
                 'htmlSelect',
+                'videos'
             ));
     }
 

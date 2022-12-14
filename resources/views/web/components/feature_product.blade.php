@@ -149,7 +149,7 @@
                 }
             })
         }
-
+        //xem nhanh san pham
         function viewProduct() {
             let urlQuickView = $(this).data('url-product')
             $.ajax({
@@ -221,6 +221,7 @@
         })
     </script>
 
+    <!--Hiển thị sản phẩm yêu thích-->
     <script>
         function view() {
             if (localStorage.getItem('data') != null) {
@@ -247,6 +248,8 @@
         }
         view()
     </script>
+
+    <!--nút thích sản phẩm-->
     <script>
         function add_wishlist(productId) {
             let id = productId;
@@ -266,8 +269,6 @@
                 localStorage.setItem('data', '[]')
             }
             let old_data = JSON.parse(localStorage.getItem('data'))
-            // old_data.push(newItem)  chỗ này để in ra xem
-            // localStorage.setItem('data',JSON.stringify(old_data))
             let maches = $.grep(old_data, function (obj) {
                 return obj.id === id;
             })

@@ -17,12 +17,8 @@ function actionDelete(e){
                 dataType: 'json',
                 success: function (data){
                    if (data.code === 200){
-                       $(self).closest('tr').remove();
-                       Swal.fire(
-                           'Xong',
-                           'Sản phẩm đã xóa hỏi hệ thống',
-                           'success'
-                       )
+                       $(self).closest('tr').html('');
+                      alert('Xóa thành công')
                    }
                 },
                 error: function (){

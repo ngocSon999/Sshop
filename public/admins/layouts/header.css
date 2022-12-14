@@ -7,7 +7,7 @@
     position: absolute;
     top: 100%;
     left: -240px;
-    width: 300px;
+    max-width: 350px;
     min-height: 200px;
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 100;
@@ -21,6 +21,7 @@
     align-items: center;
     margin: 4px 0;
     padding: 0 8px;
+    max-width: 340px;
 }
 .cart-items div p {
     display: block;
@@ -57,9 +58,17 @@
 
 
 .cart-items.noCart {
-
+    border: 1px solid;
+    border-radius:5px;
+    min-width: 200px;
+    max-width: 300px;
+    background-color: #fff;
 }
-
+.cart-items.noCart p {
+    display: block;
+    margin-top: 10px;
+    color: red;
+}
 
 .profile-user.toggle {
 
@@ -67,7 +76,7 @@
 
 .userLogout {
     position: absolute;
-    min-width: 100px;
+    min-width: 150px;
     min-height: 100px;
     border-radius: 5px;
     top: 100%;

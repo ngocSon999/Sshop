@@ -1,14 +1,15 @@
 @extends('web.layouts.master')
 @section('style')
     <link rel="stylesheet" href="{{asset('/frontend/productDetail/style_productDetail.css')}}">
+
 @endsection
 @section('content')
     <div class="col-sm-12 padding-right">
         <div class="product-details"><!--product-details-->
             <div class="col-sm-5">
                 <div class="view-product">
-                    <img id="anh_chinh" src="{{$product->feature_image_path}}" alt=""/>
-                    <h3>ZOOM</h3>
+                    <img style="transform: scale(1)" id="anh_chinh" src="{{$product->feature_image_path}}" alt=""/>
+                    <h3 type="button" id="zoom_image">ZOOM</h3>
                 </div>
 
                 <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -16,12 +17,16 @@
                     <div class="carousel-inner">
                         <div class="item active">
                             @foreach($product->images->take(4) as $key=> $productImage)
-                               <img class="anh_phu_{{$productImage->id}}" onclick="showProductImage(this.id)"  id="{{$productImage->id}}"  width="100px" height="100px" src="{{$productImage->image_path}}" alt="">
+                                <img class=" show-anh-phu anh_phu_{{$productImage->id}}"
+                                     onclick="showProductImage(this.id)" id="{{$productImage->id}}" width="100px"
+                                     height="100px" src="{{$productImage->image_path}}" alt="">
                             @endforeach
                         </div>
                         <div class="item">
                             @foreach($product->images->skip(4)->take(4) as $key=> $productImage)
-                                <img class="anh_phu_{{$productImage->id}}" onclick="showProductImage(this.id)"  id="{{$productImage->id}}" width="100px" height="100px" src="{{$productImage->image_path}}" alt="">
+                                <img class=" show-anh-phu  anh_phu_{{$productImage->id}}"
+                                     onclick="showProductImage(this.id)" id="{{$productImage->id}}" width="100px"
+                                     height="100px" src="{{$productImage->image_path}}" alt="">
                             @endforeach
                         </div>
                     </div>
@@ -133,30 +138,31 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="tab-pane fade active in" id="reviews">
 
-                        <div class="col-sm-12">
-                            @if(Auth::user())
-                                @if(Auth::user()->is_admin)
-                                    <ul>
-                                        <li><a href=""><i class="fa fa-user"></i>Admin: {{Auth::user()->name}}</a></li>
-                                        <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                                        <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                                    </ul>
-                                @endif
+                    <div class="col-sm-12">
+                        @if(Auth::user())
+                            @if(Auth::user()->is_admin)
+                                <ul>
+                                    <li><a href=""><i class="fa fa-user"></i>Admin: {{Auth::user()->name}}</a></li>
+                                    <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
+                                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
+                                </ul>
                             @endif
+                        @endif
 
-                            @foreach($comments as $comment)
+                        @foreach($comments as $comment)
                             <div style="background-color: bisque; margin:4px 0" class="row">
                                 <div class="col-sm-2">
                                     <img src="{{$comment->users->user_image_path}}" width="100px" height="100px" alt="">
                                 </div>
                                 <div class="col-sm-10">
                                     <div class="row">
-                                        <p><b>@if($comment->users->is_admin) @Admin: @endif{{$comment->users->name}}</b></p>
+                                        <p><b>@if($comment->users->is_admin)
+                                                    @Admin:
+                                                @endif{{$comment->users->name}}</b></p>
                                         <p>{{$comment->description}}</p>
                                         <p>{{$comment->content}}</p>
                                         <p><a class="btn btn-xs btn-default">Xem thêm</a></p>
@@ -169,9 +175,11 @@
                                                 @if(Auth::id() == $comment->user_id)
                                                     <span><a type="button"
                                                              data-toggle="modal" data-target="#viewEditComment"
-                                                             data-url="{{route('web.edit_comment',['id'=>$comment->id])}}" class="user_edit_comment" href="">Sửa</a></span>
+                                                             data-url="{{route('web.edit_comment',['id'=>$comment->id])}}"
+                                                             class="user_edit_comment" href="">Sửa</a></span>
                                                     <span>
-                                                    <a onclick="return confirm('Bạn muốn xóa nội dung này?')" href="{{route('web.delete_comment',['id'=>$comment->id])}}">Xóa</a>
+                                                    <a onclick="return confirm('Bạn muốn xóa nội dung này?')"
+                                                       href="{{route('web.delete_comment',['id'=>$comment->id])}}">Xóa</a>
                                                 </span>
                                                 @endif
                                             @endif
@@ -181,87 +189,92 @@
                                 </div>
                             </div>
 
-                                @foreach($comment->parentComment as $parentComment)
-                                        <div style="background-color: #99CC99; margin:4px 0 4px 40px;" class="row">
-                                            <div class="col-sm-2">
-                                                <img src="{{$parentComment->users->user_image_path}}" width="100px" height="100px" alt="">
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <div class="row">
-                                                    <p><b>@if($parentComment->users->is_admin) @Admin: @endif{{$parentComment->users->name}}</b></p>
-                                                    <p>{{$parentComment->description}}</p>
-                                                    <p>{{$parentComment->content}}</p>
-                                                    <p><a class="btn btn-xs btn-default">Xem thêm</a></p>
-                                                    <p>
-                                                        <span>{{$parentComment->created_at}}</span>
-                                                        <span><a href="">Thích</a></span>
-                                                        <span><a href="">Phản hồi</a></span>
-                                                        <span>1<i class="fa-solid fa-thumbs-up"></i></span>
-                                                        @if(Auth::check())
-                                                            @if(Auth::id() == $parentComment->user_id)
-                                                                <span><a type="button"
-                                                                         data-toggle="modal" data-target="#viewEditComment"
-                                                                         data-url="{{route('web.edit_comment',['id'=>$parentComment->id])}}" class="user_edit_comment" href="">Sửa</a></span>
-                                                                <span>
-                                                    <a onclick="return confirm('Bạn muốn xóa nội dung này?')" href="{{route('web.delete_comment',['id'=>$comment->id])}}">Xóa</a>
+                            @foreach($comment->parentComment as $parentComment)
+                                <div style="background-color: #99CC99; margin:4px 0 4px 40px;" class="row">
+                                    <div class="col-sm-2">
+                                        <img src="{{$parentComment->users->user_image_path}}" width="100px"
+                                             height="100px" alt="">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <p><b>@if($parentComment->users->is_admin)
+                                                        @Admin:
+                                                    @endif{{$parentComment->users->name}}</b></p>
+                                            <p>{{$parentComment->description}}</p>
+                                            <p>{{$parentComment->content}}</p>
+                                            <p><a class="btn btn-xs btn-default">Xem thêm</a></p>
+                                            <p>
+                                                <span>{{$parentComment->created_at}}</span>
+                                                <span><a href="">Thích</a></span>
+                                                <span><a href="">Phản hồi</a></span>
+                                                <span>1<i class="fa-solid fa-thumbs-up"></i></span>
+                                                @if(Auth::check())
+                                                    @if(Auth::id() == $parentComment->user_id)
+                                                        <span><a type="button"
+                                                                 data-toggle="modal" data-target="#viewEditComment"
+                                                                 data-url="{{route('web.edit_comment',['id'=>$parentComment->id])}}"
+                                                                 class="user_edit_comment" href="">Sửa</a></span>
+                                                        <span>
+                                                    <a onclick="return confirm('Bạn muốn xóa nội dung này?')"
+                                                       href="{{route('web.delete_comment',['id'=>$comment->id])}}">Xóa</a>
                                                 </span>
-                                                            @endif
-                                                        @endif
-                                                    </p>
+                                                    @endif
+                                                @endif
+                                            </p>
 
-                                                </div>
-                                            </div>
                                         </div>
-                                @endforeach
+                                    </div>
+                                </div>
                             @endforeach
-                            <p>Đánh giá sao: </p>
-                            <ul class="list-inline" title="Average Ranting">
-                                @for($count = 1; $count <= 5; $count++)
-                                    @php
-                                        if ($count <= $ratting ){
-                                            $color = 'color:#ffcc00';
-                                        }else{
-                                             $color = 'color:#ccc';
-                                        }
-                                    @endphp
-                                    <li title="Đánh giá sao"
-                                        id="ratingProduct{{$count}}"
-                                        data-index="{{$count}}"
-                                        data-product_id="{{$product->id}}"
-                                        data-ratting="{{$ratting}}"
-                                        class="ratting"
-                                        data-url="{{route('web.insert_ratting')}}"
-                                        style="cursor:pointer;{{$color}}; font-size: 30px">
-                                        &#9733;
-                                    </li>
-                                @endfor
+                        @endforeach
+                        <p>Đánh giá sao: </p>
+                        <ul class="list-inline" title="Average Ranting">
+                            @for($count = 1; $count <= 5; $count++)
+                                @php
+                                    if ($count <= $ratting ){
+                                        $color = 'color:#ffcc00';
+                                    }else{
+                                         $color = 'color:#ccc';
+                                    }
+                                @endphp
+                                <li title="Đánh giá sao"
+                                    id="ratingProduct{{$count}}"
+                                    data-index="{{$count}}"
+                                    data-product_id="{{$product->id}}"
+                                    data-ratting="{{$ratting}}"
+                                    class="ratting"
+                                    data-url="{{route('web.insert_ratting')}}"
+                                    style="cursor:pointer;{{$color}}; font-size: 30px">
+                                    &#9733;
+                                </li>
+                            @endfor
 
-                            </ul>
-                            @if(Auth::user())
-                                <p><b>Bình luận</b></p>
-                                @if(session('tb'))
-                                    <div class="alert alert-success">{{session('tb')}}</div>
-                                @endif
-                                <form action="{{route('web.save_comment')}}" method="post">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="">Nhập tiêu đề:</label>
-                                        <input required maxlength="255" class="form-control" name="description"
-                                               placeholder="Nhập tiêu đề"/>
-                                    </div>
-                                    <div>
-                                        <label for="">Nhập nội dung:</label>
-                                        <textarea  required maxlength="255" name="contents"
-                                                  placeholder="Nhập nội dung"></textarea>
-                                    </div>
-                                    <input hidden name="product_id" value="{{$product->id}}">
-
-                                    <button type="submit" class="btn btn-default pull-right">
-                                        Gửi
-                                    </button>
-                                </form>
+                        </ul>
+                        @if(Auth::user())
+                            <p><b>Bình luận</b></p>
+                            @if(session('tb'))
+                                <div class="alert alert-success">{{session('tb')}}</div>
                             @endif
-                        </div>
+                            <form action="{{route('web.save_comment')}}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="">Nhập tiêu đề:</label>
+                                    <input required maxlength="255" class="form-control" name="description"
+                                           placeholder="Nhập tiêu đề"/>
+                                </div>
+                                <div>
+                                    <label for="">Nhập nội dung:</label>
+                                    <textarea required maxlength="255" name="contents"
+                                              placeholder="Nhập nội dung"></textarea>
+                                </div>
+                                <input hidden name="product_id" value="{{$product->id}}">
+
+                                <button type="submit" class="btn btn-default pull-right">
+                                    Gửi
+                                </button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div><!--/category-tab-->
@@ -269,7 +282,7 @@
         @include('web.components.product_detail.product_recommend')
     </div>
     <!-- Modal comment-->
-        @include('web.components.product_detail.modal_edit_comment')
+    @include('web.components.product_detail.modal_edit_comment')
     <!-- Modal show quick product -->
     @include('web.components.product_detail.modal_show_quick_product')
 @endsection
@@ -332,9 +345,9 @@
                                     'Cảm ơn đánh giá của bạn',
                                     'success'
                                 )
-                                setTimeout(function (){
+                                setTimeout(function () {
                                     window.location.reload()
-                                },500)
+                                }, 500)
                             }
                         },
                         error: function () {
@@ -375,9 +388,9 @@
                                     'Thêm sản phẩm vào giỏ hàng thành công',
                                     'success'
                                 )
-                                setTimeout(function (){
+                                setTimeout(function () {
                                     window.location.reload()
-                                },500)
+                                }, 500)
                             }
                         },
                         error: function () {
@@ -441,9 +454,9 @@
                                     'Thêm sản phẩm vào giỏ hàng thành công',
                                     'success'
                                 )
-                                setTimeout(function (){
+                                setTimeout(function () {
                                     window.location.reload()
-                                },500)
+                                }, 500)
                             }
                         },
                         error: function () {
@@ -459,52 +472,53 @@
         }
 
         //show form sửa comment
-        function userEditComment(e){
+        function userEditComment(e) {
             e.preventDefault()
             url = $(this).data('url')
             $.ajax({
-                type:'get',
-                url:url,
-                success: function (response){
+                type: 'get',
+                url: url,
+                success: function (response) {
                     $('#comment_content').val(response.data.content)
                     $('#comment_description').val(response.data.description)
                     $('#comment_id').val(response.data.id)
-                    $('#form_edit_comment').attr('data-url','{{route('web.update_comment')}}')
+                    $('#form_edit_comment').attr('data-url', '{{route('web.update_comment')}}')
                 },
-                error: function (){
+                error: function () {
 
                 },
             })
         }
 
         //update sau khi sửa comment
-    function userUpdateComment(e){
-        e.preventDefault()
-        let url =$('#form_edit_comment').attr('data-url')
-        let comment_id = $('#comment_id').val()
-        let descriptionComment =$('#comment_description').val()
-        let contentComment = $('#comment_content').val()
-        let _token = $('input[name="_token"]').val()
-        $.ajax({
-            type:'post',
-            url:url,
-            data:{
-                comment_id:comment_id,
-                descriptionComment:descriptionComment,
-                contentComment:contentComment,
-                _token:_token
-            },
-            success:function (data){
-                alert('Sửa bình luận thành công')
-                setTimeout(function (){
-                    window.location.reload()
-                },500)
-            },
-            error:function (){
+        function userUpdateComment(e) {
+            e.preventDefault()
+            let url = $('#form_edit_comment').attr('data-url')
+            let comment_id = $('#comment_id').val()
+            let descriptionComment = $('#comment_description').val()
+            let contentComment = $('#comment_content').val()
+            let _token = $('input[name="_token"]').val()
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: {
+                    comment_id: comment_id,
+                    descriptionComment: descriptionComment,
+                    contentComment: contentComment,
+                    _token: _token
+                },
+                success: function (data) {
+                    alert('Sửa bình luận thành công')
+                    setTimeout(function () {
+                        window.location.reload()
+                    }, 500)
+                },
+                error: function () {
 
-            }
-        })
-    }
+                }
+            })
+        }
+
         $(function () {
             $('.add-to-cart.addCart').on('click', addToCart)
             $('.add-to-cart').on('click', viewProduct)
@@ -513,12 +527,26 @@
             $('.update_comment').on('click', userUpdateComment)
         })
     </script>
+
+
     <!--click show  cái ảnh phụ -->
     <script>
-        function showProductImage(imageId){
-            let image = $('.anh_phu_'+imageId).attr('src');
-            let imageChinh = $('#anh_chinh').attr('src',image);
+
+        function showProductImage(imageId) {
+            let image = $('.anh_phu_' + imageId).attr('src');
+            $('#anh_chinh').attr('src', image);
         }
+
+        <!--hover chuột show ảnh phụ-->
+        $(document).on('mouseenter', '.show-anh-phu', function () {
+            let images = $(this).attr('src');
+            $('#anh_chinh').attr('src', images);
+        })
+
+        <!--zoom anh-->
+        $(document).on('click', '#zoom_image', function () {
+            $('#anh_chinh').css('background-color', 'red');
+        })
     </script>
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v15.0"

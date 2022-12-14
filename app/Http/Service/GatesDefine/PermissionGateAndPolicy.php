@@ -13,8 +13,36 @@ class PermissionGateAndPolicy {
         $this->defineGateSetting();
         $this->defineGateUser();
         $this->defineGateRole();
+        $this->defineGateOder();
+        $this->defineGateComment();
+        $this->defineGateContact();
+        $this->defineGateVideo();
     }
 
+    public function defineGateVideo(){
+        Gate::define('video_list','App\Policies\VideoPolicy@view');
+        Gate::define('video_add','App\Policies\VideoPolicy@create');
+        Gate::define('video_edit','App\Policies\VideoPolicy@update');
+        Gate::define('video_delete','App\Policies\VideoPolicy@delete');
+    }
+    public function defineGateContact(){
+        Gate::define('contact_list','App\Policies\ContactPolicy@view');
+        Gate::define('contact_add','App\Policies\ContactPolicy@create');
+        Gate::define('contact_edit','App\Policies\ContactPolicy@update');
+        Gate::define('contact_delete','App\Policies\ContactPolicy@delete');
+    }
+    public function defineGateComment(){
+        Gate::define('comment_list','App\Policies\CommentPolicy@view');
+        Gate::define('comment_add','App\Policies\CommentPolicy@create');
+        Gate::define('comment_edit','App\Policies\CommentPolicy@update');
+        Gate::define('comment_delete','App\Policies\CommentPolicy@delete');
+    }
+    public function defineGateOder(){
+        Gate::define('oder_list','App\Policies\OderPolicy@view');
+        Gate::define('oder_add','App\Policies\OderPolicy@create');
+        Gate::define('oder_edit','App\Policies\OderPolicy@update');
+        Gate::define('oder_delete','App\Policies\OderPolicy@delete');
+    }
     public function defineGateCategory(){
         Gate::define('category_list','App\Policies\CategoryPolicy@view');
         Gate::define('category_add','App\Policies\CategoryPolicy@create');

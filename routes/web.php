@@ -42,14 +42,11 @@ Route::prefix('admin')->group(function (){
         Route::get('/video',[VideosController::class,'video'])->name('admin.video');
         Route::post('/select_video',[VideosController::class,'selectVideo'])->name('admin.video.select_video');
         Route::delete('/delete_video',[VideosController::class,'deleteVideo'])->name('admin.video.delete_video');
+        Route::post('/add_video',[VideosController::class,'addVideo'])->name('admin.video.add_video');
+        Route::get('/edit_video',[VideosController::class,'editVideo'])->name('admin.video.edit_video');
+        Route::post('/update_video',[VideosController::class,'updateVideo'])->name('admin.video.update_video');
+        Route::post('/show_video',[VideosController::class,'showVideo'])->name('admin.video.show_video');
 
-        Route::get('/create',[VideosController::class,'create'])->name('admin.category.create');
-        Route::post('/store',[VideosController::class,'store'])->name('admin.category.store');
-
-        Route::get('/edit/{id}',[VideosController::class,'edit'])->name('admin.category.edit');
-        Route::post('/update/{id}',[VideosController::class,'update'])->name('admin.category.update');
-
-        Route::get('/delete/{id}',[VideosController::class,'delete'])->name('admin.category.delete');
     });
 
    Route::prefix('category')->group(function (){
@@ -113,15 +110,15 @@ Route::prefix('admin')->group(function (){
     });
 
     Route::prefix('user')->group(function (){
-        Route::get('/',[UserController::class,'index'])->name('admin.user.index');//->middleware('can:user_list');
+        Route::get('/',[UserController::class,'index'])->name('admin.user.index')->middleware('can:user_list');
 
-        Route::get('/create',[UserController::class,'create'])->name('admin.user.create');//->middleware('can:user_add');
+        Route::get('/create',[UserController::class,'create'])->name('admin.user.create')->middleware('can:user_add');
         Route::post('/store',[UserController::class,'store'])->name('admin.user.store');
 
-        Route::get('/edit/{id}',[UserController::class,'edit'])->name('admin.user.edit');//->middleware('can:user_edit');
+        Route::get('/edit/{id}',[UserController::class,'edit'])->name('admin.user.edit')->middleware('can:user_edit');
         Route::post('/update/{id}',[UserController::class,'update'])->name('admin.user.update');
 
-        Route::get('/delete',[UserController::class,'delete'])->name('admin.user.delete');//->middleware('can:user_delete');
+        Route::get('/delete',[UserController::class,'delete'])->name('admin.user.delete')->middleware('can:user_delete');
     });
 
 
@@ -150,7 +147,7 @@ Route::prefix('admin')->group(function (){
     });
 
     Route::prefix('oder')->group(function (){
-        Route::get('/',[OdersController::class,'index'])->name('admin.oder.index');
+        Route::get('/',[OdersController::class,'index'])->name('admin.oder.index')->middleware('can:oder_list');;
         Route::get('/oder_detail/{id}',[OdersController::class,'oderDetail'])->name('admin.oder_detail');
 
         Route::get('/edit_oder_detail/{id}',[OdersController::class,'editOder'])->name('admin.edit_oder_detail');
@@ -160,7 +157,7 @@ Route::prefix('admin')->group(function (){
 
     Route::prefix('contact')->group(function (){
         //Liên hệ
-        Route::get('/',[ContactController::class,'contactList'])->name('admin.contact.index');
+        Route::get('/',[ContactController::class,'contactList'])->name('admin.contact.index')->middleware('can:contact_list');
         Route::delete('/delete_contact',[ContactController::class,'deleteContact'])->name('admin.contact.delete_contact');
     });
 

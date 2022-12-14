@@ -79,9 +79,7 @@
                             <li class="cart_header">
                                 <a href="{{route('web.showCart')}}"><i class="fa fa-shopping-cart"></i>Cart</a>
 
-                                <div class="cart-items">
-                                    <img src="" alt="">
-                                </div>
+
                                 @if(!empty($totalProduct))
                                     <p class="cart-productTotal">{{$totalProduct}}</p>
                                     <div class="cart-items">
@@ -92,16 +90,16 @@
                                                 <p>{{number_format($cart['price']*$cart['quantity'])}} đ</p>
                                             </div>
                                         @endforeach
-                                        <div>Tổng số sản phẩm: {{$totalProduct}}</div>
+                                        <div>Tổng sản phẩm: {{$totalProduct}}</div>
 
-                                        <div>Tổng tiền giỏ hàng: {{number_format($totalPrice)}} đ</div>
+                                        <div>Tổng tiền: {{number_format($totalPrice)}} đ</div>
 
                                         <a class="btn btn-success" href="{{route('web.showCart')}}">Xem giỏ hàng</a>
                                     </div>
                                 @else
                                     <p class="cart-productTotal">0</p>
                                     <div class="cart-items noCart">
-                                        <img src="" alt="">
+                                        <img src="{{asset('/frontend/Eshopper/images/no-cart.png')}}" width="100%" alt="">
                                         <p>Chưa có sản phẩm nào trong giỏ hàng</p>
                                     </div>
                                 @endif

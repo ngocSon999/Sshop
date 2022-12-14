@@ -15,7 +15,6 @@
 
                         <form action="{{route('admin.permission.store')}}" method="post">
                             @csrf
-
                             <div class="form-group">
                                 <label for="">Chọn tên module</label>
                                 <select name="module_parent" id="" class="form-control">

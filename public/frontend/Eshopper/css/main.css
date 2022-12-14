@@ -8,9 +8,9 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
+  /*background*/
   position: relative;
-  font-weight:400px;
+  font-weight: 400px;
 }
 
 ul li {
@@ -198,7 +198,7 @@ a#scrollUp i{
 
 
 .shop-menu ul li a {
-  background: #FFFFFF;
+  /*background: #FFFFFF;*/
   color: #696763;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
@@ -902,7 +902,7 @@ h2.title {
   transition: height 500ms ease 0s;
   width: 100%;
   display: block;
-  opacity:;
+  /*opacity:;*/
 }
 
 .single-products:hover .product-overlay {
@@ -2136,8 +2136,7 @@ h2.title {
   width: 57px;
 }
 
-.pager-area
-.pager li a:hover {
+.pager-area .pager li a:hover {
   background: #FE980F;
   color: #fff
 }
@@ -2160,9 +2159,7 @@ h2.title {
   margin-bottom: 0
 }
 
-
-.rating-area
-.ratings li i {
+.rating-area .ratings li i {
   color:#CCCCCC
 }
 
@@ -2173,8 +2170,7 @@ h2.title {
   text-transform: uppercase;
 }
 
-.rating-area
-.ratings .color,
+.rating-area .ratings .color,
 .rating-area .color {
   color: #FE980F
 }
@@ -2200,8 +2196,7 @@ h2.title {
 }
 
 
-.commnets
-.media-object {
+.commnets .media-object {
   margin-right: 15px;
   width: 100%;
 }

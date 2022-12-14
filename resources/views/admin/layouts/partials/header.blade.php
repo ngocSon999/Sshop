@@ -164,14 +164,17 @@
             </a>
         </li>
         <li class="nav-item profile-user dropdown">
+            @if(Auth::check())
             <a class="nav-link" href="#"><i class="fa fa-user"></i> profile</a>
-
-            <ul id="userLogout">
-                <li><a href=""><i class="fa fa-suitcase"></i>Hồ sơ</a></li>
-                <li><a href=""><i class="fa fa-cog"></i>Setting</a></li>
-                <li><a href="{{route('admin.logout')}}"><i class="fa fa-cog"></i>Đăng xuất</a></li>
-                <li><button class="btn btn-success">Đóng</button></li>
-            </ul>
+                <ul id="userLogout">
+                    <li><a href=""><i class="fa fa-suitcase"></i>Hồ sơ</a></li>
+                    <li><a href=""><i class="fa fa-cog"></i>Setting</a></li>
+                    <li><a href="{{route('admin.logout')}}"><i class="fa fa-cog"></i>Đăng xuất</a></li>
+                    <li><button class="btn btn-success">Đóng</button></li>
+                </ul>
+            @else
+                <a class="nav-link" href="{{route('admin.login')}}">Đăng nhập</a>
+            @endif
         </li>
     </ul>
 </nav>

@@ -35,7 +35,28 @@ return [
         'role_list'=>'role_list',
         'role_add'=>'role_add',
         'role_edit'=>'role_edit',
-        'role_delete'=>'role_delete'
+        'role_delete'=>'role_delete',
+
+        'oder_list'=>'oder_list',
+        'oder_add'=>'oder_add',
+        'oder_edit'=>'oder_edit',
+        'oder_delete'=>'oder_delete',
+
+        'comment_list'=>'comment_list',
+        'comment_add'=>'comment_add',
+        'comment_edit'=>'comment_edit',
+        'comment_delete'=>'comment_delete',
+
+        'contact_list'=>'contact_list',
+        'contact_add'=>'contact_add',
+        'contact_edit'=>'contact_edit',
+        'contact_delete'=>'contact_delete',
+
+        'video_list'=>'video_list',
+        'video_add'=>'video_add',
+        'video_edit'=>'video_edit',
+        'video_delete'=>'video_delete',
+
     ],
     'tableModule'=>[
         'category',
@@ -44,7 +65,11 @@ return [
         'slider',
         'setting',
         'user',
-        'role'
+        'role',
+        'oder',
+        'comment',
+        'contact',
+        'video'
     ],
     'moduleChildrent'=>[
         'list',
