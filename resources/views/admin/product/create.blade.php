@@ -48,7 +48,6 @@
                                 @enderror
                             </div>
 
-
                             <div class="form-group">
                                 <label for="">Chọn danh mục</label>
                                 <select name="category_id"  class="form-control select2-init" >
@@ -91,7 +90,7 @@
     <script src="{{asset('admins/products/create/create.js')}}"></script>
 
     <script>
-        CKEDITOR.replace( 'ckeditor1' );
+        CKEDITOR.replace('ckeditor1');
     </script>
 
 
