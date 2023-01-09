@@ -13,12 +13,9 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    @can('category_add')
-                        <div class="col-12">
-                            <a href="{{route('admin.category.create')}}" class="btn btn-primary float-right m-2">Thêm</a>
-                        </div>
-                    @endcan
-
+                    <div class="col-12">
+                        <a href="{{route('admin.category.create')}}" class="btn btn-primary float-right m-2">Thêm</a>
+                    </div>
                     <div class="col-12">
 
                         @if(session('tb'))
@@ -39,11 +36,14 @@
                                     <td>{{$category->name}}</td>
                                     <td>
                                         @can('category_edit')
-                                            <a class="btn btn-default" href="{{route('admin.category.edit',$category->id)}}">Edit</a>
+                                            <a class="btn btn-default"
+                                               href="{{route('admin.category.edit',$category->id)}}">Edit</a>
                                         @endcan
-                                       @can('category_delete')
-                                                <a onclick="return confirm('Bạn có chắc chắn muốn xóa')" class="btn btn-danger" href="{{route('admin.category.delete',$category->id)}}">Delete</a>
-                                       @endcan
+                                        @can('category_delete')
+                                            <a onclick="return confirm('Bạn có chắc chắn muốn xóa')"
+                                               class="btn btn-danger"
+                                               href="{{route('admin.category.delete',$category->id)}}">Delete</a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

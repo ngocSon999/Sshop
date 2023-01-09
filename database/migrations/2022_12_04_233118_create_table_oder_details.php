@@ -17,6 +17,13 @@ class CreateTableOderDetails extends Migration
             $table->id();
             $table->integer('oder_id');
             $table->integer('product_id');
+            $table->string('name');
+            $table->string('image_path');
+            $table->integer('price');
+            $table->integer('quantity');
+            $table->integer('total_money');
+            $table->integer('pay_method');
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -184,7 +184,6 @@
                                                 @endif
                                             @endif
                                         </p>
-
                                     </div>
                                 </div>
                             </div>

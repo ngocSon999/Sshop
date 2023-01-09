@@ -15,7 +15,6 @@
                                 $quantitySolds= DB::table('oder_details')
                                     ->join('products','oder_details.product_id','=','products.id')
                                     ->where('products.id',$product->id)
-                                    ->select('oder_details.*')
                                     ->get();
                                 foreach ($quantitySolds as $oder){
                                      $abc += $oder->quantity;

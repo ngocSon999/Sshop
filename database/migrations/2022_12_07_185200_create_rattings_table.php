@@ -16,6 +16,8 @@ class CreateRattingsTable extends Migration
         Schema::create('rattings', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
+            $table->integer('user_id');
+            $table->integer('ratting')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateRattingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rattings');
+        //
     }
 }

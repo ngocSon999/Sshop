@@ -11,7 +11,6 @@ use App\Models\ProductImage;
 use App\Models\Oder;
 use App\Models\Ratting;
 use App\Models\User;
-use http\Env\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\CheckUser;
@@ -79,7 +78,8 @@ class WebController extends Controller
             'email' => $request->email,
             'password' => $request->password
         ];
-        if (Auth::attempt($data)) {
+        $remember = $request->has('remember_me') ? true : false;
+        if (Auth::attempt($data,$remember)) {
             return redirect()->route('web.home.index');
         } else {
             return back()->with('tb', 'Thông tin đăng nhập không chính xác');
@@ -92,7 +92,7 @@ class WebController extends Controller
         return redirect()->route('web.home.index');
     }
 
-        //show trng chủ
+        //show trang chủ
     public function index(request $request)
     {
         $data = $this->webService->getAll($request, $slug = '');

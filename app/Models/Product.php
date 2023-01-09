@@ -37,4 +37,5 @@ class Product extends Model
         return $this->belongsToMany(Oder::class,'oder_details','product_id','oder_id');
     }
 
+
 }
