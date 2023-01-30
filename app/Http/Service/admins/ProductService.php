@@ -24,10 +24,10 @@ class ProductService {
 
     public function storeProduct($request)
     {
-
+        $numberPrice = filter_var($request->price,FILTER_SANITIZE_NUMBER_INT);
         $dataProduct = [
             'name'=>$request->name,
-            'price'=>$request->price,
+            'price'=>$numberPrice,
             'content'=>$request->contents,
             'user_id'=>Auth::id(),
             'category_id'=>$request->category_id,

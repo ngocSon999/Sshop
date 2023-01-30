@@ -13,8 +13,11 @@
     <link href="{{asset('/frontend/Eshopper/css/main.cs')}}s" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('/admins/layouts/header.css')}}">
     <link rel="stylesheet" href="{{asset('/frontend/vlite.css')}}">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="{{asset('/frontend/vlite.js')}}"></script>
+
     <style>
         .crollUp {
             position: fixed;
@@ -52,8 +55,9 @@
 
 @yield('content')
 
-@include('web.layouts.footer')
+{{--@include('web.layouts.footer')--}}
 <a class="crollUp" href="#"><i class="bi bi-arrow-up"></i></a>
+
 
 <script>
     $(document).ready(function () {
@@ -75,15 +79,9 @@
     })
 </script>
 
-
 <script src="{{asset('/frontend/js/bootstrap.min.js')}}"></script>
-{{--<script src="{{asset('/frontend/Eshopper/js/jquery.scrollUp.min.js')}}"></script>--}}
-{{--<script src="{{asset('/frontend/Eshopper/js/price-range.js')}}"></script>--}}
-{{--<script src="{{asset('/frontend/Eshopper/js/jquery.prettyPhoto.js')}}"></script>--}}
 <script src="{{asset('/frontend/js/main.js')}}"></script>
-<script src="{{asset('/frontend/vlite.js')}}"></script>
 @yield('js')
-
 
 <div id="fb-root"></div>
 <script>

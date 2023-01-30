@@ -11,7 +11,6 @@
         <!-- Content Header (Page header) -->
         @include('admin.layouts.partials.contentHeader',['name'=>'Product', 'key'=>'Create'])
 
-
         <!-- Main content -->
         <div class="container">
             <div class="row">
@@ -28,7 +27,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Giá sản phẩm</label>
-                                <input type="text" name="price" class="form-control" placeholder="Nhập giá sản phẩm" value="{{old('price')}}">
+                                <input type="text" name="price" class="form-control money-format" placeholder="Nhập giá sản phẩm" value="{{old('price')}}">
                                 @error('price')
                                 <span style="color:red">{{$message}}</span>
                                 @enderror
@@ -85,12 +84,14 @@
     </div>
 @endsection
 
+
 @section('js')
     <script src="{{asset('/vendors/select2/select2.min.js')}}"></script>
     <script src="{{asset('admins/products/create/create.js')}}"></script>
-
-    <script>
+    <script src="{{asset('admins/simple.money.format.js')}}"></script>
+    <script type="text/javascript">
         CKEDITOR.replace('ckeditor1');
+        $('.money-format').simpleMoneyFormat();
     </script>
 
 

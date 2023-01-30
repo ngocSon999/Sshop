@@ -34,7 +34,7 @@ class CheckProduct extends FormRequest
        }
         return [
             'name'=>'required|max:255|unique:products,name,'.$id,
-            'price'=>'required|integer',
+            'price'=>'required|max:20',
             'feature_image_path'=>Rule::requiredIf(function () use ($product) {
                 if($product && $product->feature_image_path){
                     return false;

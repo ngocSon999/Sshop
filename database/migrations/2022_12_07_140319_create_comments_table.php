@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration
             $table->integer('user_id');
             $table->integer('product_id');
             $table->integer('comment_status')->default(0);
+            $table->integer('parent_comment_id')->default(0);
             $table->string('name');
             $table->string('email');
             $table->string('description');
