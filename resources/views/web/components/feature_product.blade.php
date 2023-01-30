@@ -7,7 +7,7 @@
                     <div class="productinfo text-center">
                         <a id="wishlist_productUrl_{{$product->id}}"
                            href="{{route('web.productDetail',['id'=>$product->id])}}">
-                            <img src="{{$product->feature_image_path}}" alt=""/>
+                            <img src="{{asset($product->feature_image_path)}}" alt=""/>
                             <h3>{{number_format($product->price)}} đ</h3>
                             <h2>{!! $product->name !!}</h2>
                             @php

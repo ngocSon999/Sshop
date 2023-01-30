@@ -230,7 +230,7 @@
                         <ul class="list-inline" title="Average Ranting">
                             @for($count = 1; $count <= 5; $count++)
                                 @php
-                                    if ($count <= $ratting ){
+                                    if ($count <= $ratting){
                                         $color = 'color:#ffcc00';
                                     }else{
                                          $color = 'color:#ccc';
@@ -308,7 +308,7 @@
         //nhả chuột không đánh giá
         $(document).on('mouseleave', '.ratting', function (e) {
             let index = $(this).data('index')
-            let product_id = $(this).data('product_id')
+            var product_id = $(this).data('product_id')
             let ratting = $(this).data('ratting')
             remove_background()
             for (let count = 1; count <= ratting; count++) {
@@ -335,7 +335,6 @@
                     $.ajax({
                         type: 'GET',
                         url: urlRatting,
-                        dataType: 'json',
                         data: {index: index, product_id: product_id},
                         success: function (data) {
                             if (data.code === 200) {

@@ -49,7 +49,7 @@
                             </div>
 
                             <div class="form-group">
-                                <img src="{{$user->user_iamge_path}}"
+                                <img src="{{$user->user_image_path}}"
                                      width="100px"
                                      height="100px"
                                      alt="">

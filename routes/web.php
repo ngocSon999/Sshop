@@ -50,15 +50,15 @@ Route::prefix('admin')->group(function (){
     });
 
    Route::prefix('category')->group(function (){
-       Route::get('/',[CategoryController::class,'index'])->name('admin.category.index');//->middleware('can:category_list');
+       Route::get('/',[CategoryController::class,'index'])->name('admin.category.index')->middleware('can:category_list');
 
-       Route::get('/create',[CategoryController::class,'create'])->name('admin.category.create');//->middleware('can:category_add');
+       Route::get('/create',[CategoryController::class,'create'])->name('admin.category.create')->middleware('can:category_add');
        Route::post('/store',[CategoryController::class,'store'])->name('admin.category.store');
 
-       Route::get('/edit/{id}',[CategoryController::class,'edit'])->name('admin.category.edit');//->middleware('can:category_edit');
+       Route::get('/edit/{id}',[CategoryController::class,'edit'])->name('admin.category.edit')->middleware('can:category_edit');
        Route::post('/update/{id}',[CategoryController::class,'update'])->name('admin.category.update');
 
-       Route::get('/delete/{id}',[CategoryController::class,'delete'])->name('admin.category.delete');//->middleware('can:category_delete');
+       Route::get('/delete/{id}',[CategoryController::class,'delete'])->name('admin.category.delete')->middleware('can:category_delete');
    });
 
     Route::prefix('menu')->group(function (){
@@ -204,7 +204,8 @@ Route::prefix('web')->group(function(){
     Route::get('/product_tag/{slug}',[WebController::class,'tagsProduct'])->name('web.product_tag');
     //xem nhanh
     Route::get('/quick_view/{id}',[WebController::class,'quickView'])->name('web.quick_view');
-
+    //Đánh giá sao
+    Route::get('/insert_ratting',[WebController::class,'insert_ratting'])->name('web.insert_ratting');
 
 
 
@@ -224,8 +225,7 @@ Route::prefix('web')->group(function(){
         //update comment
         Route::post('/update_comment',[CommentController::class,'updateComment'])->name('web.update_comment');
 
-        //Đánh giá sao
-        Route::get('/insert_ratting',[CommentController::class,'insert_ratting'])->name('web.insert_ratting');
+
     });
 
 

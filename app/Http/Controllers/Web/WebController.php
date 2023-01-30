@@ -93,7 +93,7 @@ class WebController extends Controller
     }
 
         //show trang chủ
-    public function index(request $request)
+    public function index(Request $request)
     {
         $data = $this->webService->getAll($request, $slug = '');
         list($sliders, $categories, $products, $productRecommended, $settings, $htmlSelect,$videos) = $data;
@@ -303,5 +303,29 @@ class WebController extends Controller
         $output['product_category'] = 'Danh mục: ' . $category->name;
         $output['product_input_id'] = '<input hidden id="idProduct" value="' . $id . '" type="text" data-idProduct="' . $id . '">';
         return \response()->json($output);
+    }
+
+
+    public function insert_ratting(Request $request)
+    {
+        $ratting = Ratting::where('user_id', Auth::user()->id)->where('product_id', $request->product_id)->get();
+        $result = $ratting->count();
+        $dataRatting = [
+            'user_id' => Auth::user()->id,
+            'product_id' => $request->product_id,
+            'ratting' => $request->index,
+        ];
+        if ($result) {
+            return response()->json([
+                'code' => 500,
+                'message' => 'error'
+            ], 500);
+        } else {
+            Ratting::create($dataRatting);
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+            ], 200);
+        }
     }
 }

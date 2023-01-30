@@ -67,64 +67,7 @@ class CommentController extends Controller
                 'code' => 200,
                 'message' => 'success',
             ], 200);
-
-
     }
-
-
-    public function insert_ratting(Request $request)
-    {
-
-        $ratting = Ratting::where('user_id', \Auth::id())->where('product_id', $request->product_id)->first();
-        $result = $ratting->count();
-        $dataRatting = [
-            'user_id' => \Auth::id(),
-            'product_id' => $request->product_id,
-            'ratting' => $request->index,
-        ];
-        if ($result) {
-            return response()->json([
-                'code' => 500,
-                'message' => 'error'
-            ], 500);
-        } else {
-            Ratting::create($dataRatting);
-            return \response()->json([
-                'code' => 200,
-                'message' => 'success',
-            ], 200);
-        }
-
-//        try {
-//            $ratting = Ratting::where('user_id', \Auth::id())->where('product_id', $request->product_id)->get();
-//            $result = $ratting->count();
-//            $dataRatting = [
-//                'user_id' => \Auth::id(),
-//                'product_id' => $request->product_id,
-//                'ratting' => $request->index,
-//            ];
-//            if($result == 0){
-//                Ratting::create($dataRatting);
-//                return \response()->json([
-//                    'code' => 200,
-//                    'message' => 'success',
-//                ], 200);
-//            }else{
-//                return response()->json([
-//                    'code'=>500,
-//                    'message'=>'error'
-//                ],500);
-//            }
-//        } catch (\Exception $exception) {
-//            log::error('message: '.$exception->getMessage().'like: '.$exception->getLine());
-//            return response()->json([
-//                'code'=>500,
-//                'message'=>'error'
-//            ],500);
-//        }
-
-    }
-
     public function editComment($id)
     {
         $comment = Comment::find($id);
