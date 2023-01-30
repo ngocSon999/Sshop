@@ -17,32 +17,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="{{asset('/frontend/vlite.js')}}"></script>
-
-    <style>
-        .crollUp {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            width: 42px;
-            height: 42px;
-            visibility: hidden;
-            border-radius: 5px;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            padding: 4px;
-        }
-
-        .crollUp > i {
-            display: block;
-            font-size: 24px;
-            color: white;
-        }
-
-        .crollUp.active {
-            visibility: unset;
-        }
-    </style>
+    <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     @yield('style')
 </head>
 
@@ -51,7 +26,6 @@
 <div id="headerTotal">
     @include('web.layouts.header')
 </div>
-
 
 @yield('content')
 

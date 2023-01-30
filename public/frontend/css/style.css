@@ -1,0 +1,23 @@
+.crollUp {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    width: 42px;
+    height: 42px;
+    visibility: hidden;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+}
+
+.crollUp > i {
+    display: block;
+    font-size: 24px;
+    color: white;
+}
+
+.crollUp.active {
+    visibility: unset;
+}
