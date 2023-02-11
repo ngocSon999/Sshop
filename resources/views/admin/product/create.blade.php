@@ -19,28 +19,28 @@
                         <form action="{{route('admin.product.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label for="">Tên Product</label>
+                                <label for="">{{__('product/title.name')}}</label>
                                 <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm" value="{{old('name')}}">
                                 @error('name')
                                 <span style="color:red">{{$message}}</span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="">Giá sản phẩm</label>
+                                <label for="">{{__('product/title.price')}}</label>
                                 <input type="text" name="price" class="form-control money-format" placeholder="Nhập giá sản phẩm" value="{{old('price')}}">
                                 @error('price')
                                 <span style="color:red">{{$message}}</span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="">Ảnh đại diện</label>
+                                <label for="">{{__('product/title.feature_image_path')}}</label>
                                 <input type="file" name="feature_image_path" class="form-control-file">
                                 @error('feature_image_path')
                                 <span style="color:red">{{$message}}</span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="">Ảnh chi tiết</label>
+                                <label for="">{{__('product/title.image_path')}}</label>
                                 <input multiple type="file" name="image_path[]" class="form-control-file" >
                                 @error('image_path')
                                 <span style="color:red">{{$message}}</span>
@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="">Chọn danh mục</label>
+                                <label for="">{{__('product/title.category')}}</label>
                                 <select name="category_id"  class="form-control select2-init" >
                                     <option value="">Chọn danh mục</option>
                                     {!! $htmlOption !!}

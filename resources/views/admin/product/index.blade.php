@@ -7,9 +7,6 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         @include('admin.layouts.partials.contentHeader',['name'=>'Product', 'key'=>'List'])
-
-
-
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
@@ -22,44 +19,21 @@
                         @if(session('tb'))
                             <div class="alert alert-success">{{session('tb')}}</div>
                         @endif
-                        <table class="table">
+                        <table class="table" id="table_product_list">
                             <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Tên sản phẩm</th>
-                                <th scope="col">Giá</th>
-                                <th scope="col">Hình ảnh</th>
-                                <th scope="col">Danh mục</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">{{__('product/title.id')}}</th>
+                                <th scope="col">{{__('product/title.name')}}</th>
+                                <th scope="col">{{__('product/title.price')}}</th>
+                                <th scope="col">{{__('product/title.feature_image_path')}}</th>
+                                <th scope="col">{{__('product/title.category')}}</th>
+                                <th scope="col">{{__('product/title.actions')}}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($productList as $product)
 
-                                <tr>
-                                    <th scope="row">{{$product->id}}</th>
-                                    <th scope="row">{{$product->name}}</th>
-                                    <th scope="row">{{number_format($product->price)}}</th>
-                                    <th scope="row"><img src="{{$product->feature_image_path}}"
-                                                         width="150px"
-                                                         height="150px"
-                                                         alt=""
-                                                    >
-                                    </th>
-                                    <th scope="row">{{optional($product->category)->name}}</th>
-                                    <td>
-                                        <a class="btn btn-default" href="{{route('admin.product.edit',$product->id)}}">Edit</a>
-                                        <a class="btn btn-danger action_delete"  href=""
-                                           data-url="{{route('admin.product.delete',$product->id)}}">Delete</a>
-{{--                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa')" class="btn btn-danger" href="{{route('admin.product.delete',$product->id)}}">Delete</a>--}}
-                                    </td>
-                                </tr>
-                            @endforeach
                             </tbody>
                         </table>
-                    </div>
-                    <div class="col-12 d-flex justify-content-end">
-                        <div>{{ $productList->links() }}</div>
                     </div>
                 </div>
             </div>
@@ -72,6 +46,31 @@
     <script src="{{asset('vendors/sweetalert2/sweetalert2@11.js')}}"></script>
     <script src="{{asset('admins/main.js')}}"></script>
     <script>
-
+        $(document).ready(function (){
+            $('#table_product_list').DataTable({
+                processing: true,
+                serverSide: true,
+                aLengthMenu: [2, 25, 50],
+                pageLength: 10,
+                oLanguage: {
+                    sLengthMenu: "{{ __('datatable/title.datatable.item_per_page') }}", // item per page text
+                    sSearch: "{{ __('datatable/title.datatable.search') }}", // item per page text
+                    sInfo: "{{ __('datatable/title.datatable.pagination_info') }}", // item per page text
+                    oPaginate: {
+                        sPrevious: "{{ __('datatable/title.datatable.pagination_previous') }}",
+                        sNext: "{{ __('datatable/title.datatable.pagination_next') }}"
+                    }
+                },
+                ajax: '{{ route('admin.product.data') }}',
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'price', name: 'price' },
+                    { data: 'feature_image_path', name: 'feature_image_path' },
+                    { data: 'category_id', name: 'category_id' },
+                    { data: 'actions', name: 'actions' },
+                ]
+            })
+        })
     </script>
 @endsection

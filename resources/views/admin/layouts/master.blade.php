@@ -18,6 +18,9 @@
     <!-- ckeditor-->
     <script src="{{asset('admins/ckeditor/ckeditor.js')}}"></script> <!--the textare-->
     <!-- customer video youtobe-->
+    <!-- Datatable-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+
     @yield('style')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -37,8 +40,8 @@
 <script src="{{asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
-<!--video-->
-
+<!--Datatable-->
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 @yield('js')
 </body>
 </html>

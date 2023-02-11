@@ -83,6 +83,7 @@ Route::prefix('admin')->group(function (){
         Route::post('/update/{id}',[ProductController::class,'update'])->name('admin.product.update');
 
         Route::get('/delete/{id}',[ProductController::class,'delete'])->name('admin.product.delete');//->middleware('can:product_delete');
+        Route::get('/data',[ProductController::class,'getDataProduct'])->name('admin.product.data');//->middleware('can:product_delete');
     });
 
     Route::prefix('slider')->group(function (){

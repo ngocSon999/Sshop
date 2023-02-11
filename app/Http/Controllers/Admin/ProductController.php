@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CheckProduct;
 use App\Http\Service\admins\ProductService;
 use App\Models\Product;
+use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
 {
@@ -18,8 +19,7 @@ class ProductController extends Controller
     }
 
     public function index(){
-        $productList =  $this->productService->getList();
-        return view('admin.product.index',compact('productList'));
+        return view('admin.product.index');
     }
 
     public function create($parentId = ''){
@@ -49,5 +49,30 @@ class ProductController extends Controller
 
     public function delete($id){
         return $this->productService->deleteProduct($id);
+    }
+
+    public function getDataProduct (){
+        $products = Product::select([
+            'id',
+            'name',
+            'price',
+            'feature_image_path',
+            'category_id'
+        ]);
+        return DataTables::of($products->get())
+            ->editColumn('feature_image_path', function(Product $product){
+                return sprintf(
+                    '<img src="%s" width="150px" height="150px" alt="">',
+                            asset($product->feature_image_path)
+                );
+            })
+            ->editColumn('category_id', function (Product $product){
+                return $product->category->name;
+            })
+            ->addColumn('actions', function ($product) {
+                return view('admin.product.actions', ['row' => $product])->render();
+            })
+            ->rawColumns(['actions','feature_image_path'])
+            ->make(true);
     }
 }
